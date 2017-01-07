@@ -1,0 +1,6 @@
+name = "Plack-App-GzipStatic"
+# badges = ["travis"]
+authority="cpan:HKOBA"
+
+module_maker="ModuleBuildTiny"
+
