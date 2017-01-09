@@ -1,0 +1,39 @@
+#!/usr/bin/env perl
+use strict;
+use Plack::Runner;
+use Plack::App::Directory;
+
+use Plack::Builder;
+use Plack::App::GzipStatic;
+
+{
+  my $runner = Plack::Runner->new;
+
+  my %opts = (root => $ENV{PWD}
+              , _parse_posix_long_options(\@ARGV));
+
+  my $app = builder {
+    if (-d (my $d = "$opts{root}/static")) {
+      mount "/static"
+        , Plack::App::GzipStatic->new({root => $d})->to_app;
+    }
+    mount "/", Plack::App::Directory->new(\%opts)->to_app;
+  };
+
+  $runner->parse_options(@ARGV);
+
+  $runner->run($app);
+}
+
+sub _parse_posix_long_options {
+  my ($args) = @_;
+  my @opts;
+  while (@$args and $args->[0] =~ /^--/) {
+    my $opt = shift @$args;
+    last if $opt eq "--";
+    $opt =~ m{^--(\w+)(?:=(.*))?$} or die "Bad option: $_";
+    push @opts, $1, $2 // 1;
+  }
+
+  @opts;
+}
