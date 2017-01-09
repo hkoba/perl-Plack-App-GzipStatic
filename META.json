@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "mimics gzip_static",
    "author" : [
       "Kobayasi, Hiroaki <buribullet@gmail.com>"
    ],
@@ -42,11 +42,20 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008001"
+            "File::Spec" : "0",
+            "HTTP::Date" : "0",
+            "Plack::App::File" : "0",
+            "Plack::MIME" : "0",
+            "Plack::Util" : "0",
+            "fields" : "0",
+            "perl" : "5.010001"
          }
       },
       "test" : {
          "requires" : {
+            "HTTP::Request::Common" : "0",
+            "Plack::Test" : "0",
+            "Test::Kantan" : "0",
             "Test::More" : "0.98"
          }
       }
