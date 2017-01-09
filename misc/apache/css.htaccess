@@ -1,0 +1,3 @@
+Options +MultiViews
+AddEncoding gzip .gz
+AddType text/css .gz
